@@ -1,19 +1,35 @@
 import CommonForm from "@/components/common/CommonForm";
 import { registerFormControls } from "@/config";
+import { useToast } from "@/hooks/use-toast"
+import { registerUser } from "@/redux/auth-slice";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
- const initialState = {
-  userName: '',
-  email: '',
-  password: ''
- }
-  const [formData, setFormData] = useState(initialState);
  
-  const onSubmit = () => {
+  const initialState = {
+  userName: "",
+  email: "",
+  password: "",
+ }
 
-  }
+  const [formData, setFormData] = useState(initialState);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const {toast} = useToast();
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    dispatch(registerUser(formData)).then((data) => {
+        if(data?.payload?.success) {
+          toast({
+            title: data?.payload?.message
+          }) 
+          navigate('/auth/login');
+        } 
+    })
+  } 
 
   // const navigate = useNavigate();
   return (
