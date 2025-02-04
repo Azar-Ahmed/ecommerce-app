@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import CheckAuth from './components/common/CheckAuth'
 import Login from './pages/auth/Login'
@@ -15,24 +16,31 @@ import UnauthPage from './pages/unauth-page/Index'
 import NotFound from './pages/not-found/Index'
 import AuthLayout from './components/auth/AuthLayout'
 import Layout from './components/shop/Layout'
-
+import { useDispatch, useSelector } from 'react-redux'
+import { checkAuthUser } from './redux/auth-slice'
+import { Skeleton } from "@/components/ui/skeleton";
 function App() {
-  const isAuth = false
-  const user = {
-    "role" : "user"
-  }
+  
+  const {user, isAuthenticated, isLoading} = useSelector((state) => state.auth)
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(checkAuthUser());
+  }, [dispatch]);
+
+  if (isLoading) return <Skeleton className="w-[800] bg-black h-[600px]" />;
 
   return (
     <>
       <div className="flex flex-col overflow-hidden bg-white">
         <Routes>
-          <Route path="/" element={<CheckAuth isAuth={isAuth} user={user}></CheckAuth>} />
+          <Route path="/" element={<CheckAuth isAuthenticated={isAuthenticated} user={user}></CheckAuth>} />
           
           {/* Auth Routes*/}
           <Route
             path="/auth"
             element={
-              <CheckAuth isAuth={isAuth} user={user}>
+              <CheckAuth isAuthenticated={isAuthenticated} user={user}>
                 <AuthLayout />
               </CheckAuth>
             }
@@ -45,7 +53,7 @@ function App() {
           <Route
             path="/admin"
             element={
-              <CheckAuth isAuth={isAuth} user={user}>
+              <CheckAuth isAuthenticated={isAuthenticated} user={user}>
                 <AdminLayout />
               </CheckAuth>
             }
@@ -60,7 +68,7 @@ function App() {
           <Route
             path="/shop"
             element={
-              <CheckAuth isAuth={isAuth} user={user}>
+              <CheckAuth isAuthenticated={isAuthenticated} user={user}>
                 <Layout />
               </CheckAuth>
             }
