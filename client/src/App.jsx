@@ -17,7 +17,7 @@ import AuthLayout from './components/auth/AuthLayout'
 import Layout from './components/shop/Layout'
 
 function App() {
-  const isAuth = true
+  const isAuth = false
   const user = {
     "role" : "user"
   }
