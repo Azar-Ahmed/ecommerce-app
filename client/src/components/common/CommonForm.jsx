@@ -1,10 +1,10 @@
 import {
   Select,
+  SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-  SelectContent,
-} from '@radix-ui/react-select'
+} from "../ui/select";
 import { Textarea } from '../ui/textarea'
 import { Button } from "../ui/button"
 import { Input } from "../ui/input";
@@ -35,13 +35,20 @@ const CommonForm = ({
         )
         break
 
-      case 'select':
-        element = (
-          <Select value={value} onValueChange={(value) =>setFormData({...formData, [getControlItem.name] : value})}>
-            <SelectTrigger className="w-full">
-              <SelectValue
-                placeholder={getControlItem.placeholder}
-              ></SelectValue>
+        case "select":
+          element = (
+            <Select
+              onValueChange={(value) =>
+                setFormData({
+                  ...formData,
+                  [getControlItem.name]: value,
+                })
+              }
+              value={value}
+            >
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder={getControlItem.label} />
+              </SelectTrigger>
               <SelectContent>
                 {getControlItem.options && getControlItem.options.length > 0
                   ? getControlItem.options.map((optionItem) => (
@@ -51,10 +58,10 @@ const CommonForm = ({
                     ))
                   : null}
               </SelectContent>
-            </SelectTrigger>
-          </Select>
-        )
-        break
+            </Select>
+          );
+  
+          break;
       case 'textarea':
         element = (
           <Textarea
