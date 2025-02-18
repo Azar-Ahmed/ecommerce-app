@@ -1,6 +1,8 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
 import axios from 'axios'
 
+const url = 'http://localhost:3000/api/auth'
+
 const initialState = {
     isAuthenticated: false,
     isLoading: true,
@@ -8,7 +10,7 @@ const initialState = {
 }
 
 export const registerUser = createAsyncThunk('/auth/register', async(formData) => {
-        const response = await axios.post('http://localhost:3000/api/auth/register', formData, {
+        const response = await axios.post(`${url}/register`, formData, {
             withCredentials: true
         })
         return response.data; 
@@ -16,7 +18,7 @@ export const registerUser = createAsyncThunk('/auth/register', async(formData) =
 )
 
 export const loginUser = createAsyncThunk('/auth/login', async(formData) => {
-    const response = await axios.post('http://localhost:3000/api/auth/login', formData, {
+    const response = await axios.post(`${url}/login`, formData, {
         withCredentials: true
     })
     return response.data; 
@@ -27,8 +29,7 @@ export const checkAuthUser = createAsyncThunk(
     "/auth/check-auth",
   
     async () => {
-      const response = await axios.get(
-        "http://localhost:3000/api/auth/check-auth",
+      const response = await axios.get(`${url}/check-auth`,
         {
           withCredentials: true,
           headers: {
@@ -47,7 +48,7 @@ export const checkAuthUser = createAsyncThunk(
   
     async () => {
       const response = await axios.post(
-        "http://localhost:3000/api/auth/logout",
+        `${url}/logout`,
         {},
         {
           withCredentials: true,
@@ -103,6 +104,7 @@ const authSlice = createSlice({
             state.user = null;
             state.isAuthenticated = false;
           })
+          
           .addCase(logoutUser.fulfilled, (state) => {
             state.isLoading = false;
             state.user = null;
