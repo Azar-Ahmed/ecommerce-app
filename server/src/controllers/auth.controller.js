@@ -30,11 +30,12 @@ export const login = async (req, res) => {
         if(!checkPwd) return res.json({success: false, message: "Invalid Credential!"})
         
          const token = jwt.sign({
-            id: user._id, role:user.role, email: user.email
+            id: user._id, userName: user.userName, email: user.email, role:user.role 
          }, process.env.JWT_SECRET_KEY, {expiresIn: '60min'})   
          
          res.cookie('token', token, {httpOnly: true, secure: false}).json({success: true, message: "User Sign In Successfully!", user: {
             id: user._id,
+            userName: user.userName,
             email: user.email,
             role: user.role
          }})
