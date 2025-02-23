@@ -5,6 +5,8 @@ import cors from 'cors'
 import connectDB from './config/db.js'
 import authRouter from './routes/auth.route.js'
 import adminProductRouter from './routes/admin/product.route.js'
+import ProductRouter from './routes/shop/product.route.js'
+
 
 dotenv.config();
 
@@ -34,6 +36,8 @@ app.get("/", (req, res) => {
 });
 app.use('/api/auth', authRouter);
 app.use('/api/admin/products', adminProductRouter);
+app.use('/api/shop/products', ProductRouter);
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
