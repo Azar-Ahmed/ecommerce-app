@@ -9,18 +9,42 @@ import {
 } from '../ui/dialog'
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { StarIcon } from "lucide-react";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { Input } from "../ui/input";
 import { Label } from '@radix-ui/react-label';
+import { addToCart, fetchCartItems } from '@/redux/shop/cart-slice';
+
+import { useToast } from '@/hooks/use-toast'
+
+
 const ProductDetails = ({ open, setOpen, productDetails }) => {
+  const {toast} = useToast()
   const dispatch = useDispatch()
+  const {user} = useSelector((state) => state.auth)
+
 
   function handleDialogClose() {
     setOpen(false)
     dispatch(setProductDetails())
   }
+
+  const handleAddToCart = (getCurrentProductId) => {
+  
+        dispatch(
+          addToCart({
+            userId: user?.id,
+            productId: getCurrentProductId,
+            quantity: 1,
+          })
+        ).then((data) => {
+          if (data?.payload?.success) {
+            dispatch(fetchCartItems(user?.id));
+            toast({title: "Product is added to cart."})
+          }
+        });
+      }
   return (
     <>
       <Dialog open={open} onOpenChange={handleDialogClose}>
@@ -66,7 +90,7 @@ const ProductDetails = ({ open, setOpen, productDetails }) => {
             </span>
           </div>
             <div className="mt-5 mb-5">
-                <Button className="w-full">Add To Cart</Button>
+                <Button className="w-full" onClick={()=>handleAddToCart(productDetails?._id)}>Add To Cart</Button>
             </div>
               <Separator />
               <div className="max-h-[300px] overflow-auto">

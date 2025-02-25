@@ -15,6 +15,8 @@ import { fetchFilteredProducts, fetchProductDetails } from '@/redux/shop/product
 import ProductCard from '@/components/shop/ProductCard'
 import ProductDetails from '@/components/shop/ProductDetails'
 import { useSearchParams } from 'react-router-dom'
+import { addToCart, fetchCartItems } from '@/redux/shop/cart-slice'
+import { useToast } from '@/hooks/use-toast'
 
 
 function createSearchParamsHelper(filterParams){
@@ -30,12 +32,13 @@ function createSearchParamsHelper(filterParams){
 
 const Listing = () => {
   const dispatch = useDispatch()
+  const {user} = useSelector((state) => state.auth)
   const { productList, productDetails } = useSelector((state) => state.shoppingProducts)
   const [filters, setFilters] = useState({});
   const [sort, setSort] = useState(null)
   const [searchParams, setSearchParams] = useSearchParams()
   const [openDetailDialog, setOpenDetailDialog] = useState(false)
-
+  const {toast} = useToast()
   
   
   const handleSort = (value) => {
@@ -65,9 +68,25 @@ const Listing = () => {
   }
  
  const handleGetProductDetails = (getCurrentProductId) => {
-  console.log('getCurrentProductId' + getCurrentProductId);
   dispatch(fetchProductDetails(getCurrentProductId))
  }
+
+ const handleAddToCart = (getCurrentProductId) => {
+
+      dispatch(
+        addToCart({
+          userId: user?.id,
+          productId: getCurrentProductId,
+          quantity: 1,
+        })
+      ).then((data) => {
+        if (data?.payload?.success) {
+          dispatch(fetchCartItems(user?.id));
+          toast({title: "Product is added to cart."})
+        }
+      });
+    }
+ 
 
 
   useEffect(() => {
@@ -124,9 +143,9 @@ const Listing = () => {
             </div>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
-            {productList?.length > 0
+            {productList && productList?.length > 0
               ? productList.map((productItem) => (
-                  <ProductCard key={productItem.id} product={productItem} handleGetProductDetails={(handleGetProductDetails)}/>
+                  <ProductCard key={productItem.id} product={productItem} handleGetProductDetails={(handleGetProductDetails)} handleAddToCart={handleAddToCart}/>
                 ))
               : null}
           </div>

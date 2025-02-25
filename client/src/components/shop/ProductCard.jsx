@@ -3,7 +3,7 @@ import { Button } from "../ui/button";
 import { brandOptionsMap, categoryOptionsMap } from "@/config";
 import { Badge } from "../ui/badge";
 
-const ProductCard = ({product, handleGetProductDetails}) => {
+const ProductCard = ({product, handleGetProductDetails, handleAddToCart}) => {
 
   return (
     <>
@@ -24,10 +24,10 @@ const ProductCard = ({product, handleGetProductDetails}) => {
                        {product?.salePrice > 0 ?  <span className='text-lg font-semibold text-primary'>${product?.salePrice}</span> : null}
                     </div>
                 </CardContent>
-                <CardFooter>
-                    <Button className="w-full">Add to Cart</Button>
-                </CardFooter>
             </div>
+                <CardFooter>
+                    <Button className="w-full" onClick={()=>handleAddToCart(product?._id)}>Add to Cart</Button>
+                </CardFooter>
         </Card>
     </>
   )
