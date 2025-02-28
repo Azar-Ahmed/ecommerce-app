@@ -5,7 +5,9 @@ import CartItemContent from './CartItemContent'
 const CartWrapper = ({ cartItems, setOpenCartSheet }) => {
 
  const totalCartAmt = cartItems && cartItems.length > 0 ? cartItems.reduce((sum, currentItem) => sum + (currentItem?.salePrice > 0 ? currentItem.salePrice : currentItem.price) * currentItem?.quantity, 0) : 0
-  return (
+ 
+ const navigate = useNavigate()
+ return (
     <SheetContent className="sm:max-w-md">
       <SheetHeader>
         <SheetTitle>Your Cart</SheetTitle>
@@ -21,7 +23,7 @@ const CartWrapper = ({ cartItems, setOpenCartSheet }) => {
           <span className="font-bold">${totalCartAmt}</span>
         </div>
       </div>
-      <Button className="w-full mt-6">Checkout</Button>
+      <Button onClick={()=>navigate('/shop/checkout')} className="w-full mt-6">Checkout</Button>
     </SheetContent>
   )
 }

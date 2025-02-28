@@ -7,6 +7,8 @@ import authRouter from './routes/auth.route.js'
 import adminProductRouter from './routes/admin/product.route.js'
 import ProductRouter from './routes/shop/product.route.js'
 import CartRouter from './routes/shop/cart.route.js'
+import AddressRouter from './routes/shop/address.route.js'
+
 
 
 
@@ -40,8 +42,7 @@ app.use('/api/auth', authRouter);
 app.use('/api/admin/products', adminProductRouter);
 app.use('/api/shop/products', ProductRouter);
 app.use('/api/shop/cart', CartRouter);
-
-
+app.use('/api/shop/address', AddressRouter);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
