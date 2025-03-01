@@ -23,7 +23,10 @@ const CartWrapper = ({ cartItems, setOpenCartSheet }) => {
           <span className="font-bold">${totalCartAmt}</span>
         </div>
       </div>
-      <Button onClick={()=>navigate('/shop/checkout')} className="w-full mt-6">Checkout</Button>
+      <Button onClick={
+        ()=>{navigate('/shop/checkout')
+        setOpenCartSheet(false)}
+      } className="w-full mt-6" >Checkout</Button>
     </SheetContent>
   )
 }
