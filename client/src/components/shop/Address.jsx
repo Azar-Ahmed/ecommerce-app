@@ -12,14 +12,16 @@ import {
 import AddressCard from './AddressCard'
 import { useToast } from '@/hooks/use-toast'
 
-const Address = () => {
-  const initialFormData = {
-    address: '',
-    city: '',
-    phone: '',
-    pincode: '',
-    notes: '',
-  }
+const initialFormData = {
+  address: '',
+  city: '',
+  phone: '',
+  pincode: '',
+  notes: '',
+}
+
+const Address = ({setCurrentSelectedAddress}) => {
+  
   const [formData, setFormData] = useState(initialFormData)
   const [currentEditedId, setCurrentEditedId] = useState(null)
  
@@ -106,6 +108,7 @@ const Address = () => {
                 addressInfo={singleAddressItem}
                 handleEditAddress={handleEditAddress}
                 handleDeleteAddress={handleDeleteAddress}
+                setCurrentSelectedAddress={setCurrentSelectedAddress}
                 />
             ))
           : null}

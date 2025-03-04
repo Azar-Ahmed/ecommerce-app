@@ -6,7 +6,7 @@ import { Dialog } from '@radix-ui/react-dialog'
 import { useState } from 'react'
 
 const AdminOrders = () => {
-  const [openDetailDialog, setOpenDetailDialog] = useState(false)
+  const [openDetailsDialog, setOpenDetailsDialog] = useState(false)
   return (
     
     <Card>
@@ -33,8 +33,8 @@ const AdminOrders = () => {
           <TableCell>123</TableCell>
           <TableCell>123</TableCell>
           <TableCell>
-              <Dialog open={openDetailDialog} onOpenChange={setOpenDetailDialog}>
-              <Button onClick={()=>setOpenDetailDialog(true)}>View Details</Button>
+              <Dialog open={openDetailsDialog} onOpenChange={setOpenDetailsDialog}>
+              <Button onClick={()=>setOpenDetailsDialog(true)}>View Details</Button>
               <AdminOrderDetails />
               </Dialog>
             </TableCell>

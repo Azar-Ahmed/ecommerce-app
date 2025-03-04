@@ -8,6 +8,8 @@ import adminProductRouter from './routes/admin/product.route.js'
 import ProductRouter from './routes/shop/product.route.js'
 import CartRouter from './routes/shop/cart.route.js'
 import AddressRouter from './routes/shop/address.route.js'
+import OrderRouter from './routes/shop/order.route.js'
+import adminOrderRouter from './routes/admin/order.route.js'
 
 
 
@@ -40,9 +42,14 @@ app.get("/", (req, res) => {
 });
 app.use('/api/auth', authRouter);
 app.use('/api/admin/products', adminProductRouter);
+app.use('/api/admin/orders', adminOrderRouter);
+
 app.use('/api/shop/products', ProductRouter);
 app.use('/api/shop/cart', CartRouter);
 app.use('/api/shop/address', AddressRouter);
+app.use('/api/shop/order', OrderRouter);
+
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
