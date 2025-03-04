@@ -1,12 +1,12 @@
 import { Table,TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table'
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card'
-import { Dialog } from '@radix-ui/react-dialog'
+import { Dialog } from '../../components/ui/dialog'
 import { Button } from '../ui/button'
 import OrderDetails from './OrderDetails'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllOrdersByUser, getOrderDetails, resetOrderDetails } from '@/redux/shop/order-slice'
-// import { Badge } from 'lucide-react'
+import { Badge } from '../../components/ui/badge'
 
 const Orders = () => {
 const [openDetailsDialog, setOpenDetailsDialog]= useState(false)
@@ -52,10 +52,10 @@ return (
            <TableCell>{orderItem?._id}</TableCell>
            <TableCell>{orderItem?.orderDate.split('T')[0]}</TableCell>
            <TableCell>
-           {/* <Badge className={`py-1 px-3 ${orderItem?.orderStatus === "confirmed" ? "bg-green-500" : orderItem?.orderStatus === "rejected" ? "bg-red-600" : "bg-black" } `}>
+           <Badge className={`py-1 px-3 ${orderItem?.orderStatus === "confirmed" ? "bg-green-500" : orderItem?.orderStatus === "rejected" ? "bg-red-600" : "bg-black" } `}>
                 {orderItem?.orderStatus}
-           </Badge> */}
-                      {orderItem?.orderStatus}
+           </Badge>
+                      {/* {orderItem?.orderStatus} */}
            </TableCell>
            <TableCell>{orderItem?.totalAmount}</TableCell>
            <TableCell>

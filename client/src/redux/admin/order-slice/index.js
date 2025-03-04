@@ -29,55 +29,52 @@ export const getOrderDetailsForAdmin = createAsyncThunk(
   }
 );
 
-// export const updateOrderStatus = createAsyncThunk(
-//   "/order/updateOrderStatus",
-//   async ({ id, orderStatus }) => {
-//     const response = await axios.put(
-//       `http://localhost:5000/api/admin/orders/update/${id}`,
-//       {
-//         orderStatus,
-//       }
-//     );
+export const updateOrderStatus = createAsyncThunk(
+  "/order/updateOrderStatus",
+  async ({ id, orderStatus }) => {
+    const response = await axios.put(
+      `${url}/update/${id}`,
+      {
+        orderStatus,
+      }
+    );
 
-//     return response.data;
-//   }
-// );
+    return response.data;
+  }
+);
 
 const adminOrderSlice = createSlice({
   name: "adminOrderSlice",
   initialState,
   reducers: {
     resetOrderDetails: (state) => {
-      console.log("resetOrderDetails");
-
       state.orderDetails = null;
     },
   },
-  extraReducers: (builder) => {
+  extraReducers:(builder) => {
     builder
-      .addCase(getAllOrdersForAdmin.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(getAllOrdersForAdmin.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.orderList = action.payload.data;
-      })
-      .addCase(getAllOrdersForAdmin.rejected, (state) => {
-        state.isLoading = false;
-        state.orderList = [];
-      })
-
-      .addCase(getOrderDetailsForAdmin.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(getOrderDetailsForAdmin.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.orderDetails = action.payload.data;
-      })
-      .addCase(getOrderDetailsForAdmin.rejected, (state) => {
-        state.isLoading = false;
-        state.orderDetails = null;
-      });
+    .addCase(getAllOrdersForAdmin.pending, (state) => {
+      state.isLoading = true;
+    })
+    .addCase(getAllOrdersForAdmin.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.orderList = action.payload.data;
+    })
+    .addCase(getAllOrdersForAdmin.rejected, (state) => {
+      state.isLoading = false;
+      state.orderList = [];
+    })
+    .addCase(getOrderDetailsForAdmin.pending, (state) => {
+      state.isLoading = true;
+    })
+    .addCase(getOrderDetailsForAdmin.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.orderDetails = action.payload.data;
+    })
+    .addCase(getOrderDetailsForAdmin.rejected, (state) => {
+      state.isLoading = false;
+      state.orderDetails = null;
+    });
   },
 });
 

@@ -1,6 +1,6 @@
 import { Label, Separator } from "@radix-ui/react-dropdown-menu"
 // import { Badge } from "lucide-react"
-import { DialogContent } from "@radix-ui/react-dialog"
+import { DialogContent } from "../../components/ui/dialog"
 import { useSelector } from "react-redux"
 
 const OrderDetails = ({orderDetails}) => {
