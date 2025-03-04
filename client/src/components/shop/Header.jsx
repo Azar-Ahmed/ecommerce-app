@@ -26,14 +26,22 @@ import { Label } from '@radix-ui/react-label'
 
 function MenuItems() {
   const navigate = useNavigate();
+ const location = useLocation()
+ const [searchParams, setSearchParams] = useSearchParams()
 
   const handleNavigate = (getCurrentMenuItem) => {
     sessionStorage.removeItem("filters");
-    const currentFilter = getCurrentMenuItem.id !== 'home' ? {
+    const currentFilter = getCurrentMenuItem.id !== 'home' && getCurrentMenuItem.id !== 'products' ? {
       category: [getCurrentMenuItem.id]
     } : null 
     sessionStorage.setItem("filters", JSON.stringify(currentFilter));
-    navigate(getCurrentMenuItem.path);
+    
+
+    location.pathname.includes("listing") && currentFilter !== null
+      ? setSearchParams(
+          new URLSearchParams(`?category=${getCurrentMenuItem.id}`)
+        )
+      : navigate(getCurrentMenuItem.path);
   }
 
   return (

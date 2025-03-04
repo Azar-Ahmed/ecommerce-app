@@ -40,11 +40,13 @@ const Listing = () => {
   const [openDetailDialog, setOpenDetailDialog] = useState(false)
   const {toast} = useToast()
   
+  const categorySearchParam = searchParams.get("category");
   
   const handleSort = (value) => {
     setSort(value)
   }
   
+
   function handleFilter(getSectionId, getCurrentOption) {
     let cpyFilters = { ...filters };
     const indexOfCurrentSection = Object.keys(cpyFilters).indexOf(getSectionId);
@@ -92,13 +94,15 @@ const Listing = () => {
   useEffect(() => {
     setSort("price-lowtohigh");
     setFilters(JSON.parse(sessionStorage.getItem("filters")) || {});
-  }, [])
+  }, [categorySearchParam]);
+
+
 
   useEffect(() => {
     if(filters && Object.keys(filters).length > 0){
       const createQueryString = createSearchParamsHelper(filters)
       setSearchParams(new URLSearchParams(createQueryString))
-    }
+    } 
   }, [filters])
  
   useEffect(() => {
