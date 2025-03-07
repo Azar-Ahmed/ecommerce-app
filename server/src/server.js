@@ -14,9 +14,7 @@ import CartRouter from './routes/shop/cart.route.js'
 import AddressRouter from './routes/shop/address.route.js'
 import OrderRouter from './routes/shop/order.route.js'
 import SearchRouter from './routes/shop/search.route.js'
-
-
-
+import ReviewRouter from './routes/shop/review.route.js'
 
 
 dotenv.config();
@@ -54,6 +52,8 @@ app.use('/api/shop/cart', CartRouter);
 app.use('/api/shop/address', AddressRouter);
 app.use('/api/shop/order', OrderRouter);
 app.use('/api/shop/search', SearchRouter);
+app.use('/api/shop/review', ReviewRouter);
+
 
 
 
