@@ -3,13 +3,18 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from 'cors'
 import connectDB from './config/db.js'
+
 import authRouter from './routes/auth.route.js'
+
 import adminProductRouter from './routes/admin/product.route.js'
+import adminOrderRouter from './routes/admin/order.route.js'
+
 import ProductRouter from './routes/shop/product.route.js'
 import CartRouter from './routes/shop/cart.route.js'
 import AddressRouter from './routes/shop/address.route.js'
 import OrderRouter from './routes/shop/order.route.js'
-import adminOrderRouter from './routes/admin/order.route.js'
+import SearchRouter from './routes/shop/search.route.js'
+
 
 
 
@@ -48,6 +53,8 @@ app.use('/api/shop/products', ProductRouter);
 app.use('/api/shop/cart', CartRouter);
 app.use('/api/shop/address', AddressRouter);
 app.use('/api/shop/order', OrderRouter);
+app.use('/api/shop/search', SearchRouter);
+
 
 
 

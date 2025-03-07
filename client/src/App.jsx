@@ -21,6 +21,8 @@ import { checkAuthUser } from './redux/auth-slice'
 import { Skeleton } from "@/components/ui/skeleton";
 import PaypalReturn from './pages/shop/PaypalReturn'
 import PaymentSuccess from './pages/shop/PaymentSuccess'
+import Search from './pages/shop/Search'
+
 function App() {
   
   const {user, isAuthenticated, isLoading} = useSelector((state) => state.auth)
@@ -81,7 +83,7 @@ function App() {
             <Route path="account" element={<Account />} />
             <Route path="paypal-return" element={<PaypalReturn />} />
             <Route path="payment-success" element={<PaymentSuccess />} />
-
+            <Route path="search" element={<Search />} />
           </Route>
           <Route path="/unauth-page" element={<UnauthPage />} />
           <Route path="*" element={<NotFound />} />
