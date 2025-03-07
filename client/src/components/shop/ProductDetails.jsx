@@ -20,8 +20,10 @@ import { useToast } from '@/hooks/use-toast'
 
 
 const ProductDetails = ({ open, setOpen, productDetails }) => {
+  
   const {toast} = useToast()
   const dispatch = useDispatch()
+  const {cartItems} = useSelector((state) => state.shoppingCart)
   const {user} = useSelector((state) => state.auth)
 
 
@@ -30,8 +32,23 @@ const ProductDetails = ({ open, setOpen, productDetails }) => {
     dispatch(setProductDetails())
   }
 
-  const handleAddToCart = (getCurrentProductId) => {
+  const handleAddToCart = (getCurrentProductId, getTotalStock) => {
   
+    let getCartItems = cartItems.items || []
+    if(getCartItems.length){
+      const indexOfCurrentItem = getCartItems.findIndex((item) => item.productId === getCurrentProductId)
+     
+      if(indexOfCurrentItem > -1){
+          const getQuantity = getCartItems[indexOfCurrentItem].quantity;
+          if(getQuantity + 1 > getTotalStock){
+            toast({title: `Only ${getQuantity} quantity can be added for this item!`, variant: 'destructive'})
+            return;
+          }  
+      }
+     
+  
+    }
+
         dispatch(
           addToCart({
             userId: user?.id,
@@ -90,7 +107,11 @@ const ProductDetails = ({ open, setOpen, productDetails }) => {
             </span>
           </div>
             <div className="mt-5 mb-5">
-                <Button className="w-full" onClick={()=>handleAddToCart(productDetails?._id)}>Add To Cart</Button>
+              {
+                productDetails?.totalStock === 0 ? (<Button className="w-full opacity-60 cursor-not-allowed">Out Of Stock</Button>) : (
+                <Button className="w-full" onClick={()=>handleAddToCart(productDetails?._id, productDetails?.totalStock)}>Add To Cart</Button>
+                )
+              }
             </div>
               <Separator />
               <div className="max-h-[300px] overflow-auto">

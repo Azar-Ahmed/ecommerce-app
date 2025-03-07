@@ -10,11 +10,43 @@ import { useToast } from '@/hooks/use-toast'
 // import { useToast } from "../ui/toast";
 const CartItemContent = ({ cartItem }) => {
   const { user } = useSelector((state) => state.auth)
+  const {cartItems} = useSelector((state) => state.shoppingCart)
+  const { productList } = useSelector((state) => state.shoppingProducts)
 
   const dispatch = useDispatch()
   const { toast } = useToast()
 
-  const removeCartItems = (getCartItem) => {
+  const removeCartItems = (getCartItem, typeOfAction) => {
+    if (typeOfAction == 'plus') {
+      let getCartItems = cartItems.items || [];
+
+      if (getCartItems.length) {
+        const indexOfCurrentCartItem = getCartItems.findIndex(
+          (item) => item.productId === getCartItem?.productId
+        );
+
+        const getCurrentProductIndex = productList.findIndex(
+          (product) => product._id === getCartItem?.productId
+        );
+        const getTotalStock = productList[getCurrentProductIndex].totalStock;
+
+        console.log(getCurrentProductIndex, getTotalStock, "getTotalStock");
+
+        if (indexOfCurrentCartItem > -1) {
+          const getQuantity = getCartItems[indexOfCurrentCartItem].quantity;
+          if (getQuantity + 1 > getTotalStock) {
+            toast({
+              title: `Only ${getQuantity} quantity can be added for this item`,
+              variant: "destructive",
+            });
+
+            return;
+          }
+        }
+      }
+    }
+
+
     dispatch(
       deleteCartItem({ userId: user?.id, productId: getCartItem?.productId }),
     ).then((data) => {
