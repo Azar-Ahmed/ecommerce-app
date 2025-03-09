@@ -5,7 +5,7 @@ import { FileIcon, UploadCloudIcon, XIcon } from 'lucide-react'
 import { Button } from '../ui/button'
 import axios from 'axios'
 import { Skeleton } from '../ui/skeleton'
-const ImageUpload = ({imageFile, setImageFile, uploadedImageUrl, setUploadedImageUrl, imageLoadingState ,setImageLoadingState, isEditMode}) => {
+const ImageUpload = ({imageFile, setImageFile, uploadedImageUrl, setUploadedImageUrl, imageLoadingState ,setImageLoadingState, isEditMode,  isCustomStyling = false,}) => {
     
     const inputRef = useRef(null)
     const handleImageFileChange = (e) =>{
@@ -45,7 +45,9 @@ const ImageUpload = ({imageFile, setImageFile, uploadedImageUrl, setUploadedImag
     }, [imageFile])
     return (
     <>
-        <div className={`w-full max-w-md mx-auto m-4`}>
+      <div
+      className={`w-full  mt-4 ${isCustomStyling ? "" : "max-w-md mx-auto"}`}
+    >
             <Label className="text-lg font-semibold mb-2 block">Upload Image</Label>
             <div onDragOver={handleDragOver} onDrop={handleDrop} className={`${isEditMode ? 'opacity-60' : ''} border-2 border-dashed rounded-lg p-4`}>
                 <Input id="image-upload" type="file" className="hidden" ref={inputRef} onChange={handleImageFileChange} disabled={isEditMode}/>

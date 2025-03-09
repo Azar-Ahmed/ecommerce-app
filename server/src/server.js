@@ -16,6 +16,7 @@ import OrderRouter from './routes/shop/order.route.js'
 import SearchRouter from './routes/shop/search.route.js'
 import ReviewRouter from './routes/shop/review.route.js'
 
+import CommonFeatureRouter from './routes/common/feature.route.js'
 
 dotenv.config();
 
@@ -54,8 +55,7 @@ app.use('/api/shop/order', OrderRouter);
 app.use('/api/shop/search', SearchRouter);
 app.use('/api/shop/review', ReviewRouter);
 
-
-
+app.use('/api/common/feature', CommonFeatureRouter);
 
 
 const PORT = process.env.PORT || 5000;

@@ -102,6 +102,7 @@ const Home = () => {
   useEffect(() => {
     dispatch(fetchFilteredProducts({filterParams: {}, sortParams: 'price-lowtohigh'}))
   }, [dispatch])
+  
   return (
     <>
       <div className="flex flex-col min-h-screen">

@@ -8,6 +8,8 @@ import AddressSlice from './shop/address-slice'
 import OrderSlice from './shop/order-slice'
 import SearchSlice from './shop/search-slice'
 import ReviewSlice from './shop/review-slice'
+import commonSlice from './common-slice/'
+
 
 
 const store = configureStore({
@@ -22,6 +24,9 @@ const store = configureStore({
       shoppingOrder: OrderSlice,
       shoppingSearch: SearchSlice,
       shoppingReviews: ReviewSlice,
+
+      commonFeature: commonSlice,
+
 
     },
   });
