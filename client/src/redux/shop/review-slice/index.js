@@ -9,7 +9,7 @@ const initialState = {
 }
 
 export const addReview = createAsyncThunk(
-    "/order/addReview",
+    "/review/addReview",
     async (formdata) => {
       const response = await axios.post(
         `${url}/add`,
@@ -21,7 +21,7 @@ export const addReview = createAsyncThunk(
   );
   
   
-export const getReviews = createAsyncThunk("/order/getReviews", async (id) => {
+export const getReviews = createAsyncThunk("/review/getReviews", async (id) => {
     const response = await axios.get(
       `${url}/${id}`
     );

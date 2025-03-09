@@ -2,7 +2,7 @@ import { Label } from "@radix-ui/react-label"
 import { Card, CardContent, CardFooter } from "../ui/card"
 import { Button } from "../ui/button"
 
-const AddressCard = ({addressInfo, handleEditAddress, handleDeleteAddress, setCurrentSelectedAddress}) => {
+const AddressCard = ({addressInfo, handleEditAddress, handleDeleteAddress, setCurrentSelectedAddress, selectedId}) => {
 
 
     return (
@@ -10,8 +10,14 @@ const AddressCard = ({addressInfo, handleEditAddress, handleDeleteAddress, setCu
         setCurrentSelectedAddress
           ? () => setCurrentSelectedAddress(addressInfo)
           : null
-      }>
-        <CardContent className="grid p-4 gap-4">
+      } 
+      className={`cursor-pointer border-red-700 ${
+        selectedId?._id === addressInfo?._id
+          ? "border-red-900 border-[4px]"
+          : "border-black"
+      }`}>
+      
+        <CardContent className={`${selectedId === addressInfo?._id ? 'border-black' : ''} grid p-4 gap-4`}>
         <Label>Address: {addressInfo?.address}</Label>
         <Label>City: {addressInfo?.city}</Label>
         <Label>pincode: {addressInfo?.pincode}</Label>

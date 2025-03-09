@@ -89,7 +89,7 @@ const Checkout = () => {
         <img src={img} className="h-full w-full object-cover object-center" />
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-5 p-5">
-        <Address setCurrentSelectedAddress={setCurrentSelectedAddress} />
+        <Address setCurrentSelectedAddress={setCurrentSelectedAddress} selectedId={currentSelectedAddress} />
         <div className="flex flex-col gap-4">
           {cartItems && cartItems.items && cartItems.items.length > 0
             ? cartItems.items.map((item) => <CartItemContent cartItem={item} key={item.id} />)
@@ -102,7 +102,8 @@ const Checkout = () => {
           </div>
           <div className="mt-4 w-full">
             <Button  className="w-full" onClick={handleInitiatePaypalPayment}>
-            Checkout with Paypal
+           {isPaymentStart ? 'Processing Payment...' : 'Checkout with Paypal'}
+            
             </Button>
           </div>
         </div>
